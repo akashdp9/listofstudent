@@ -39,16 +39,27 @@ class AddStudent extends Component {
   render() {
     return (
       <div className="">
+        <header className="heading">STUDENT INFORMATION SYSTEM</header>
         <div className='form'>
         <input type='text' className='fieldset' placeholder='First Name' onChange={(event)=>this.setState({firstName:event.target.value})} />
         <input type='text' className='fieldset' placeholder='Last Name'onChange={(event)=>this.setState({lastName:event.target.value})} />
         <input type='text' className='fieldset' placeholder='Skills'onChange={(event)=>this.setState({skills:event.target.value})} /><br></br>
-        <button className='btn' onClick={this.addItems}>submit</button>
+        <button className='btn' onClick={this.addItems}>Submit</button>
         </div >
-        <div className="searchbtn"><input type="text" className="fieldset" placeholder="search by name"/></div>
+        
       </div>
     );
   }
+}
+
+class SearchName extends Component{
+
+  render(){
+    return(
+      <div>
+         <input type="text"  className='searchbtn' onChange={(event) => this.props.searchinfo(event.target.value)}  placeholder="Search By Name" ></input>
+      </div>
+    )}
 }
 
 class App extends Component {
@@ -71,10 +82,14 @@ class App extends Component {
           'lastName': 'Singh',
           'skills': ['Python', 'Git', 'CSS']
         }
-      ]
+      ],
+      searchname:''
     }
     this.textshow = this.textshow.bind(this)
-    this.sorteditems= this.sorteditems.bind(this)
+    this.sortedfirstname= this.sortedfirstname.bind(this)
+    this.sortedlastName= this.sortedlastName.bind(this)
+    this.searchItem= this.searchItem.bind(this)
+    this.sortedskills= this.sortedskills.bind(this)
     
     
   }
@@ -84,14 +99,58 @@ class App extends Component {
       students: [...this.state.students,char]
     })
   }
-  sorteditems(){
+  sortedfirstname(){
     let sortedfirstName= this.state.students.sort(function(a,b){
-     return a.firstName.localeCompare(b.firstName)})
-   this.setState(
-     {
-       students:sortedfirstName
+      let x = a.firstName.toLowerCase();
+      let y = b.firstName.toLowerCase();
+      if (x < y) {
+        return -1;
+      }
+      if (x > y) {
+        return 1;
+      }
+      return 0;
+    });
+    this.setState(
+      {
+        students:sortedfirstName
+        
+        })
+      
+  }
+
+  sortedlastName(){
+    let sortedlastName= this.state.students.sort(function(a,b){
+     return a.lastName.localeCompare(b.lastName)})
+   this.setState({
+       students:sortedlastName
+       
        })
- }
+     
+  }
+
+ sortedskills(){
+  let sortedskills = this.state.students.sort(function(a,b){
+      if (a.skills.length > b.skills.length) {
+        return -1;
+      }
+      if (a.skills.length < b.skills.length) {
+        return 1;
+      }
+      return 0;
+    });
+ 
+ 
+  this.setState({
+    students:sortedskills
+    });
+  }
+
+ searchItem(text){
+  this.setState({
+    searchname:text
+  })
+} 
 
  
  
@@ -100,6 +159,7 @@ class App extends Component {
     return (
       <div className="App">
         <AddStudent studentinfo={this.textshow} />
+        <SearchName searchinfo={this.searchItem}/>
         <table className="table_content">
           <thead className="table-row">
           <tr>
@@ -109,7 +169,11 @@ class App extends Component {
           </tr>
           </thead>
           <tbody>
-            {this.state.students.map((item,index)=>(
+          {this.state.students.filter(name => {
+                  return name.firstName.toLowerCase().includes(this.state.searchname.toLowerCase()) ||
+                  name.lastName.toLowerCase().includes(this.state.searchname.toLowerCase());
+                })
+            .map((item,index)=>(
             <tr key={index} >
                 <td>{item.firstName}</td>
                 <td>{item.lastName}</td>
@@ -130,11 +194,3 @@ class App extends Component {
   }
 }
 export default App;
-
-
-
-
-
-
-
-
