@@ -1,0 +1,68 @@
+.heading{
+  width: 100%;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(235, 131, 91); 
+  border: 1px solid black;
+  margin-bottom: 50px;
+  font-size: 50px;
+}
+
+.table_content{
+  width: 100%;
+  margin-top: 20px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th  {
+  background-color: rgb(235, 131, 91);
+  padding: 15px;
+  text-align: left;
+}
+td  {
+  padding: 30px;
+  text-align: left;
+}
+table {
+  background-color: bisque;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+ol {
+  margin: 0;
+  padding: 0;
+}
+.form{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.fieldset{
+  width: 501px;
+  height: 50px;
+  font-size: 20px;
+  background-color: bisque;
+
+}
+.btn{
+  width: 150px;
+  background-color: orangered;
+  color: white;
+  font-size: 20px;
+
+}
+.searchbtn{
+  margin-top: 10px;
+  margin-left: 18px;
+  width: 501px;
+  height: 50px;
+  font-size: 20px;
+  background-color: bisque;
+}
