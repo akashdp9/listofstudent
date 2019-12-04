@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 
 class AddStudent extends Component {
   constructor(props){
@@ -16,10 +17,10 @@ class AddStudent extends Component {
   }
 
   addItems(){
-    let skill = this.state.skills.split(',');
-    let final_state = this.state;
-    console.log("Skills is"+this.state.skills);
-    final_state['skills'] = skill;
+    // let skill = this.state.skills.split(',');
+    // let final_state = this.state;
+    // console.log("Skills is"+this.state.skills);
+    // final_state['skills'] = skill;
     if(this.state.firstName !== '' && this.state.lastName !== '' && this.state.skills !== ''){
       console.log(this.state.skills);
       this.props.studentinfo(this.state);
@@ -95,9 +96,9 @@ class App extends Component {
   }
   textshow(char)
   {
-    this.setState({
-      students: [...this.state.students,char]
-    })
+
+    let res = axios.post("http://127.0.0.1:8000/students/create/",char)
+    console.log(res)
   }
   sortedfirstname(){
     let sortedfirstName= this.state.students.sort(function(a,b){
@@ -152,6 +153,12 @@ class App extends Component {
   })
 } 
 
+componentDidMount(){
+   axios.get("http://127.0.0.1:8000/students/")
+   .then(res=> {
+     this.setState({ students: res.data});
+   })
+}
  
  
 
@@ -163,9 +170,9 @@ class App extends Component {
         <table className="table_content">
           <thead className="table-row">
           <tr>
-            <th className="table-heading" onClick={this.sorteditems}>Firstname</th>
-            <th className="table-heading">Lastname</th>
-            <th className="table-heading">Skills</th>
+            <th className="table-heading" onClick={this.sortedfirstname}>Firstname</th>
+            <th className="table-heading" onClick={this.sortedlastName}>Lastname</th>
+            <th className="table-heading" onClick={this.sortedskills}>Skills</th>
           </tr>
           </thead>
           <tbody>
