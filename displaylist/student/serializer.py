@@ -11,8 +11,6 @@ class StudentSerializers(serializers.ModelSerializer):
 
 
 class StudentCreateSerializers(serializers.ModelSerializer):
-
-
     class Meta:
         model = Student
         fields = ( 'firstName', 'lastName', 'skills',)
