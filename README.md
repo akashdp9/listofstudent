@@ -83,4 +83,4 @@ npm start
 
 
 # Image
-!alt[img](https://github.com/akashdp9/listofstudent/blob/beckend/image/Screenshot%20from%202020-02-01%2013-53-59.png)
+![img](https://github.com/akashdp9/listofstudent/blob/beckend/image/Screenshot%20from%202020-02-01%2013-53-59.png)
